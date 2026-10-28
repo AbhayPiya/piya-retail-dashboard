@@ -73,7 +73,7 @@ with st.sidebar:
     st.markdown('<div class="sidebar-brand">◈ Piya Retail</div><div class="sidebar-sub">ANALYTICS STUDIO</div>',unsafe_allow_html=True)
     st.subheader('Report filters')
     scope=st.selectbox('Dataset',['All order activity','Streaming demo'])
-    include=st.checkbox('Include simulated orders',value=scope=='Streaming demo',disabled=scope=='Streaming demo')
+    include=st.checkbox('Include simulated orders',value=True,disabled=scope=='Streaming demo')
     if scope=='Streaming demo':
         include=True
     if st.button('Refresh data',width='stretch'):
