@@ -112,8 +112,9 @@ with st.sidebar:
     dates=st.session_state[applied_key]
     statuses=st.multiselect('Order status',meta['statuses'],default=meta['statuses'],key='statuses_'+scope+str(include))
     frequency=st.selectbox('Trend interval',['Daily','Weekly','Monthly'],index=2)
-    metric=st.selectbox('Chart measure',['Delivered merchandise sales','All-order merchandise value'],
-                        index=1 if scope=='Streaming demo' else 0)
+    metric='All-order merchandise value'
+    st.caption('Chart measure')
+    st.markdown(f'**{metric}**')
     top_n=st.slider('Top products / categories',5,30,10)
 if len(dates)!=2:
     st.info('Select both the start and end date.')
@@ -129,7 +130,7 @@ def render_dashboard():
         st.error('Dashboard queries or SQL reconciliation failed. Refresh after checking Gold and PostgreSQL connectivity.')
         st.stop()
     totals=report['totals']
-    selected='delivered_sales' if metric=='Delivered merchandise sales' else 'booked_merchandise'
+    selected='booked_merchandise'
     money=lambda value:f'${value:,.2f}'
     compact=lambda value:f'${value/1000000:,.2f}M' if value>=1000000 else (f'${value/1000:,.1f}K' if value>=10000 else money(value))
     st.caption(f"{dates[0]:%d %b %Y} — {dates[1]:%d %b %Y}  ·  {scope}  ·  {len(statuses)} statuses selected")
